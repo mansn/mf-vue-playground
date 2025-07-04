@@ -1,9 +1,12 @@
 import { federation } from "@module-federation/vite";
+import TopAwait from "vite-plugin-top-level-await";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   app: {
     entry: "./app/entry.async.ts",
   },
+  debug: true,
   compatibilityDate: "2025-05-15",
   devtools: { enabled: true },
   modules: ["@nuxt/eslint", "@nuxt/test-utils"],
@@ -12,9 +15,6 @@ export default defineNuxtConfig({
   // }, // Optional: explicitly set the entry if needed
   srcDir: "src",
   vite: {
-    build: {
-      target: "esnext",
-    },
     plugins: [
       federation({
         name: "host-container",
@@ -32,6 +32,7 @@ export default defineNuxtConfig({
           },
         },
       }),
+      new TopAwait(),
     ],
   },
 });
